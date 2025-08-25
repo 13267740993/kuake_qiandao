@@ -1,0 +1,26 @@
+name: 时区调试
+
+on:
+  schedule:
+    # 每 5 分钟执行一次（UTC 时间）
+    - cron: '*/5 * * * *'
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  check-time:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show UTC time
+        run: |
+          echo "===== 当前 UTC 时间 ====="
+          date -u
+
+      - name: Show Local time on Runner
+        run: |
+          echo "===== Runner 本地时间（通常是 UTC）====="
+          date
+
+      - name: Show Beijing time
+        run: |
+          echo "===== 北京时间 (UTC+8) ====="
+          TZ='Asia/Shanghai' date
